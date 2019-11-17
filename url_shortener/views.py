@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
+from django.http import JsonResponse
 
 
 
@@ -28,7 +29,7 @@ class UrlCreate(APIView):
         serializer = UrlSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return JsonResponse('http://u.c/'+str(data['short_url']), safe=False)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
